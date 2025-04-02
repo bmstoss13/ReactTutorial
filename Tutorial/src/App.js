@@ -9,7 +9,7 @@ function Square({ value, onSquareClick }) {
   );
 }
 
-function Board({ xIsNext, squares, onPlay }) {
+function Board({ xIsNext, squares, onPlay, }) {
 
   function handleClick(i) {
     if (squares[i] || calculateWinner(squares)) {
@@ -33,7 +33,7 @@ function Board({ xIsNext, squares, onPlay }) {
   }
   return(
     <>
-      <div classNAme="status">{status}</div>
+      <div className="status">{status}</div>
       <div className='board-row'>
         <Square value={squares[0]} onSquareClick={() => handleClick(0)}/>
         <Square value={squares[1]} onSquareClick={() => handleClick(1)}/>
@@ -57,7 +57,7 @@ export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
   const currentSquares = history[currentMove];
-  const xIsNext = currentMove%2 === 0;
+  const xIsNext = currentMove % 2 === 0;
 
   function handlePlay(nextSquares) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
@@ -77,8 +77,8 @@ export default function Game() {
       description = 'Go to game start';
     }
     return (
-      <li key={move}>
-        <button onClick={() => jumpTo(move)}>{description}</button>
+      <li className='history' key={move}>
+        <button className='history-button' onClick={() => jumpTo(move)}>{description}</button>
       </li>
     )
   })
@@ -112,4 +112,13 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+
+function calcDraw(curr) {
+  if (curr === 9){
+    return true;
+  }
+  else{
+    return false;
+  }
 }
